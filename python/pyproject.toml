@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pymomenta"       
+version = "0.0.1"        
+authors = [
+  { name="Dazhong Wu", email="wudz800@gmail.com" },
+]
+description = "Python wrapper for the high-performance Julia package Momenta.jl"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pymomenta"]
