@@ -4,15 +4,15 @@ df <- fread("data.csv")
 
 start_time <- Sys.time()
 p1 <- pvargmm(
-  dependent_vars = c("n", "w", "k"),
+  dependent_vars = c("n", "w"),
   lags = 2,
   #predet_vars = c("w","k"),
-  #exog_vars=c("revenues"),
+  exog_vars=c("k"),
   transformation = "fod",
   data = df,
   panel_identifier = c("id", "year"),
   steps = c("twostep"),
-  system_instruments =FALSE, #TRUE, #FALSE, #TRUE,
+  system_instruments = TRUE, #TRUE, #FALSE, #TRUE,
   system_constant = TRUE,
   max_instr_dependent_vars = 4,
   min_instr_dependent_vars = 2,

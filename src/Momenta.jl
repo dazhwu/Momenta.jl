@@ -44,10 +44,12 @@ end
 
 function fit(
     df::DataFrame,
-    id_time::Vector{String},
+    panel_ids::Vector{String},
     model_str::String,    
     instr_str::String, opts::String="", silent::Bool=false
 )
+
+    id_time = string.(panel_ids)
     # 1. Extract ID and Time
     # === 1. Parameter validation (this must be supplemented) ===
     if length(id_time) != 2

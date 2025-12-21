@@ -82,7 +82,7 @@ df = CSV.read("dahlberg_data.csv", DataFrame)
 m = Momenta.fit(df, 
         ["id", "year"],  
         "n w  ~ lag(n, 1:2) lag(w, 1:2) k", 
-        "GMM(n w ,2:4) IV(k)", 
+        "GMM(n w, 2:4) IV(k)", 
         "fod" 
 )
 
