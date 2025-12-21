@@ -44,8 +44,8 @@ end
 
 function fit(
     df::DataFrame,
-    model_str::String,
     id_time::Vector{String},
+    model_str::String,    
     instr_str::String, opts::String="", silent::Bool=false
 )
     # 1. Extract ID and Time
@@ -340,13 +340,13 @@ end
         # The try-catch is still retained here, but let's print out to see if there is still an error
         try
             # === 1. Univariate FD (most common) ===
-            m=fit(df_pre, "n ~ lag(n, 1:2) k", ["id", "year"], "GMM(n, 2:4) IV(k)", "", true)
+            m=fit(df_pre, ["id", "year"],  "n ~ lag(n, 1:2) k", "GMM(n, 2:4) IV(k)", "", true)
             
             # === 2. Univariate FOD (your new feature) ===
-            m=fit(df_pre, "n ~ lag(n, 1:2) k", ["id", "year"], "GMM(n, 2:4) IV(k)", "fod", true)
+            m=fit(df_pre, ["id", "year"], "n ~ lag(n, 1:2) k",  "GMM(n, 2:4) IV(k)", "fod", true)
 
             # === 3. Multivariate System GMM (more complex case) ===
-            m=fit(df_pre, "n w ~ lag(n, 1:2) lag(w, 1:2)", ["id", "year"], "GMM(n w, 2:4) IV(k)", "fod", true)
+            m=fit(df_pre, ["id", "year"],  "n w ~ lag(n, 1:2) lag(w, 1:2)",  "GMM(n w, 2:4) IV(k)", "fod", true)
             bootstrap_result=bootstrap(m, 8, 200)
             
             # If this line prints, precompilation finished successfully!
