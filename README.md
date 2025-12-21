@@ -19,7 +19,7 @@ While existing tools like R's `panelvar` or Stata's `xtabond2` are comprehensive
 | **Parallelism** | **Native Multi-threading** | Limited | Limited |
 | **Memory Efficiency** | **Zero-Copy Views** | High Overhead | Moderate |
 | **GMM Estimators** | Diff & System GMM | Diff & System GMM | Diff GMM |
-| **Transformation** | FD & **Optimized FOD** | FD & FOD | FD & FOD |
+| **Transformation** | FD & FOD | FD & FOD | FD & FOD |
 | **Python Support** | **Native Wrapper** | No | No |
 
 ## 🌟 Key Features
