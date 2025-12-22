@@ -66,11 +66,11 @@ end
 
 function irf_method(method::String)
     
-    internal_methord = lowercase(method)=="girf" ? IRF_girf : IRF_oirf
+    internal_methord = lowercase(method)=="oirf" ?  IRF_oirf : IRF_girf
     return internal_methord
 end
 
-function irf(m::model, ahead::Int64, method="girf")
+function irf(m::model, ahead::Int64, method::String="")
     if !isdefined(m, :regression_result)
         error("Model not fitted.")
     end    

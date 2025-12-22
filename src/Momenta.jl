@@ -151,7 +151,7 @@ function process_residual(result, na_records::Vector{Int64}, info::basic_info)
     end
 end
 
-function bootstrap(m::model, ahead::Int64, num_draws::Int64=200, method::String="girf", seed=123)
+function bootstrap(m::model, ahead::Int64, num_draws::Int64, method::String="", seed=123)
 
     internal_method=irf_method(method)
 

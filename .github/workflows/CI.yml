@@ -1,0 +1,68 @@
+name: CI
+
+# 触发机制：当有代码 push 到 main 分支，或者有人提 PR 时触发
+on:
+  push:
+    branches:
+      - main
+    tags: ['*']
+  pull_request:
+
+concurrency:
+  # 取消正在进行的重复构建（节省时间）
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version:
+          - '1' # 最新版 Julia
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        arch:
+          - x64      # 覆盖：Intel Mac + M1 Mac (Rosetta) + Linux/Windows x64
+          - aarch64  # 覆盖：M1/M2 Mac 原生 (Native)
+        
+        # ⚠️ 关键步骤：剔除无效组合 (exclude)
+        # 因为 GitHub 目前没有提供 "Linux ARM" 或 "Windows ARM" 的免费虚拟机
+        # 所以我们要告诉它：只有 macOS 才跑 aarch64
+        exclude:
+          - os: ubuntu-latest
+            arch: aarch64
+          - os: windows-latest
+            arch: aarch64
+
+    steps:
+      # 1. 下载你的代码
+      - uses: actions/checkout@v4
+
+      # 2. 安装 Julia 环境
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+
+      # 3. 如果你的包依赖 Python (pymomenta)，这里会自动处理
+      # 但通常跑 Julia 测试时，只要 Project.toml 里有 PythonCall，
+      # 它会自动下载微型 Conda，不需要额外配置 Python action。
+
+      # 4. 缓存依赖（加快下次运行速度）
+      - uses: julia-actions/cache@v1
+
+      # 5. 构建包（解析依赖、预编译）
+      - uses: julia-actions/julia-buildpkg@v1
+
+      # 6. 运行测试 (对应 test/runtests.jl)
+      - uses: julia-actions/julia-runtest@v1
+
+      # 7. (可选) 上传测试覆盖率报告
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v3
+        with:
+          files: lcov.info
