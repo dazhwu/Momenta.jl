@@ -6,44 +6,44 @@ using Momenta
 function Momenta.plot_irf(m::Momenta.model, boot_res::Momenta.bootstrap_results)
     
     num_vars = m.info.num_dep
-    # 假设 irf_len 可以从数据维度直接获取，或者从 m.options 获取
+    # Assume irf_len can be directly obtained from data dimensions, or from m.options
     irf_len = size(boot_res.lower, 1) 
     x = 1:irf_len
     
-    # 获取变量名
+    # Get variable names
     var_names = [v.name for v in m.deps[1:num_vars]]
 
-    # === 1. 初始化数组来存储按顺序排列的子图 ===
-    # Plots.jl 默认按行填充，所以我们外层循环是 Row (Response), 内层是 Col (Impulse)
+    # === 1. Initialize an array to store subplots in order ===
+    # Plots.jl fills by row by default, so our outer loop is Row (Response), inner is Col (Impulse)
     plot_list = Vector{Plots.Plot}()
 
     plots_dict = Dict{String, Any}()
 
-    for affected = 1:num_vars      # Row: Response (受影响)
-        for affecting = 1:num_vars # Col: Impulse (冲击)
+    for affected = 1:num_vars      # Row: Response (affected)
+        for affecting = 1:num_vars # Col: Impulse (impulse)
             
             idx = (affected-1)*num_vars + affecting
             
-            # 准备数据
+            # Prepare data
             y = boot_res.irf[:, idx] 
             y_lower = boot_res.lower[:, idx]
             y_upper = boot_res.upper[:, idx]
 
-            # 计算 Y 轴范围 (为了美观，稍微留点白)
+            # Calculate the Y-axis range (for aesthetics, leave some margin)
             max_val = maximum(y_upper)
             min_val = minimum(y_lower)
             padding = (max_val - min_val) * 0.1
             if padding == 0 padding = 0.1 end
             y_lims = (min(min_val, 0) - padding, max_val + padding)
 
-            # 构建标题: 仅在第一行显示冲击变量，仅在第一列显示响应变量，或者简单点每个都显示
-            # 这里为了清晰，每个子图都显示简短标题
+            # Construct title: Show impulse var only in first row, response var in first column, or simply show in all
+            # For clarity, each subplot shows a short title
             title_str = "$(var_names[affecting]) → $(var_names[affected])"
             key_str = "$(var_names[affecting]) on $(var_names[affected])"
 
-            # 生成单张图
+            # Generate the individual plot
             p = plot(x, y, 
-                label="",          # 去掉 label 避免图例占地
+                label="",          # Remove label to avoid legend in each subplot
                 lw=2, 
                 color=:blue,
                 ribbon=(y .- y_lower, y_upper .- y), 
@@ -51,32 +51,32 @@ function Momenta.plot_irf(m::Momenta.model, boot_res::Momenta.bootstrap_results)
                 fillcolor=:blue,
                 title=title_str,
                 titlefontsize=10,
-                framestyle=:box,     # 推荐用 box 风格，拼图更好看
+                framestyle=:box,     # Recommend box style for better combined layout
                 grid=:true,
                 gridalpha=0.3,
                 gridlinestyle=:dot,
                 ylims=y_lims,
                 xlims=(1, irf_len),
-                # 稍微调整一下边距
+                # Slightly adjust margins
                 margin=2Plots.mm 
             )
 
-            # 装饰: 零线
+            # Decoration: zero line
             hline!(p, [0], color=:black, lw=1, linestyle=:dash, label="")
 
-            # 加入列表
+            # Add to list
             push!(plot_list, p)
             plots_dict[key_str] = p
         end
     end
 
-    # === 2. 自动计算大图尺寸 ===
-    # 假设每个子图宽 300px, 高 200px
+    # === 2. Auto-compute full figure size ===
+    # Assume each subplot width 300px, height 200px
     total_width = 300 * num_vars
     total_height = 200 * num_vars
 
-    # === 3. 生成整张大图 ===
-    # layout = (行数, 列数)
+    # === 3. Generate full grid of plots ===
+    # layout = (number of rows, number of columns)
     full_plot = plot(plot_list..., 
         layout = (num_vars, num_vars), 
         size = (total_width, total_height),
@@ -84,11 +84,11 @@ function Momenta.plot_irf(m::Momenta.model, boot_res::Momenta.bootstrap_results)
         plot_titlefontsize = 12
     )
 
-    # === 4. 自动显示 ===
+    # === 4. Automatically display ===
     display(full_plot)
     plots_dict["full"]=full_plot
 
-    # 返回大图对象 (方便用户 savefig(p, "irf.png"))
+    # Return the full plot object (convenient for users to savefig(p, "irf.png"))
     return plots_dict
 end
 

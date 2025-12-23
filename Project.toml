@@ -12,21 +12,21 @@ LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 PrettyTables = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-
 
 [extensions]
 MomentaPlotsExt = "Plots"
 
 [compat]
-julia = "1.11"          # 直接指定最新版，彻底解决旧版兼容问题
-BenchmarkTools = "1"    # 不要写 "1.6.3" 这么细，写 "1" 代表允许 1.x 的任何版本
-CSV = "0.10"            # CSV 0.10 是目前的稳定系
-DataFrames = "1"        # 允许 DataFrames 1.x
-Distributions = "0.25"  
-LinearAlgebra = "1"     # 标准库
-Plots = "1"             # 关键！写 "1" 可以让解析器自动找最合适的版本，别写死 "1.41.2"
+BenchmarkTools = "1"
+CSV = "0.10"
+DataFrames = "1"
+Distributions = "0.25"
+LinearAlgebra = "1"
+Plots = "1"
 PrecompileTools = "1"
-PrettyTables = "2, 3"   # 保持这个双版本兼容
+PrettyTables = "2, 3"
+Printf = "1"
 Random = "1"
-
+julia = "1.11"
