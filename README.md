@@ -9,7 +9,7 @@ Functionally equivalent to (and faster than) the R package `panelvar` (Sigmund &
 
 > **For Python Users:** Access the full power of Momenta via our seamless wrapper: `pip install pymomenta`.
 
-## 🚀 Why Momenta?
+## Why Momenta?
 
 While existing tools like R's `panelvar` or Stata's `xtabond2` are comprehensive, they often suffer from performance bottlenecks in large  panels or during bootstrap inference. Momenta is built to supersede them:
 
@@ -22,7 +22,7 @@ While existing tools like R's `panelvar` or Stata's `xtabond2` are comprehensive
 | **Transformation** | FD & FOD | FD & FOD | FD & FOD |
 | **Python Support** | **Native Wrapper** | No | No |
 
-## 🌟 Key Features
+## Key Features
 
 ### 1. Advanced GMM Estimation
 
@@ -51,7 +51,7 @@ While existing tools like R's `panelvar` or Stata's `xtabond2` are comprehensive
 * **Lag Selection**: Andrews-Lu MMSC criteria (MBIC, MAIC, MHQIC).
 * **Stability Tests**: Eigenvalue checks for the companion matrix.
 
-## 📦 Installation
+## Installation
 
 ### Julia
 
@@ -68,7 +68,7 @@ pip install pymomenta
 
 ```
 
-## ⚡ Quick Start
+## Quick Start
 
 ### Julia Workflow
 
@@ -113,7 +113,7 @@ m = fit(df,
 
 ```
 
-## 📚 Methodology & References
+## Methodology & References
 
 Momenta is designed to strictly follow the theoretical foundations laid out in:
 
@@ -122,7 +122,7 @@ Momenta is designed to strictly follow the theoretical foundations laid out in:
 * **Blundell, R., & Bond, S. (1998).** Initial conditions and moment restrictions in dynamic panel data models. *Journal of Econometrics*.
 * **Roodman, D. (2009).** How to do xtabond2: An introduction to difference and system GMM in Stata. *The Stata Journal*.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
