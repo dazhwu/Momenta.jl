@@ -23,20 +23,20 @@ jobs:
           - '1' # 最新版 Julia
         os:
           - ubuntu-latest
-          - macos-latest
+          #- macos-latest
           - windows-latest
         arch:
           - x64      # 覆盖：Intel Mac + M1 Mac (Rosetta) + Linux/Windows x64
-          - aarch64  # 覆盖：M1/M2 Mac 原生 (Native)
+          #- aarch64  # 覆盖：M1/M2 Mac 原生 (Native)
        
-        exclude:
-          - os: ubuntu-latest
-            arch: aarch64
-          - os: windows-latest
-            arch: aarch64
+        # exclude:
+        #   - os: ubuntu-latest
+        #     arch: aarch64
+        #   - os: windows-latest
+        #     arch: aarch64
 
     steps:
-      # 1. 下载你的代码
+      # 1. 下载代码
       - uses: actions/checkout@v4
 
       # 2. 安装 Julia 环境
