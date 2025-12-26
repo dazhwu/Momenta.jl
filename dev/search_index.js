@@ -1,0 +1,3 @@
+var documenterSearchIndex = {"docs":
+[{"location":"#Momenta.jl","page":"Home","title":"Momenta.jl","text":"Welcome to Momenta.jl, a Julia package for Advanced Dynamic Panel GMM Estimation.","category":"section"},{"location":"#Installation","page":"Home","title":"Installation","text":"using Pkg\nPkg.add(\"Momenta\")\n","category":"section"},{"location":"#Features","page":"Home","title":"Features","text":"Linear GMM (Difference & System)\nNonlinear GMM (Ahn-Schmidt)\nPanel VAR (PVAR)","category":"section"},{"location":"#API-Reference","page":"Home","title":"API Reference","text":"fit GMM_step","category":"section"}]
+}
