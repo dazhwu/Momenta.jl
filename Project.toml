@@ -1,6 +1,6 @@
 name = "Momenta"
 uuid = "0ca3efaa-fb53-4d2f-87c7-6a9f57d6cfab"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Dazhong Wu <dazhong.wu@udc.edu>"]
 
 [deps]

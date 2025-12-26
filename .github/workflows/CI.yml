@@ -6,6 +6,10 @@ on:
     branches:
       - main
     tags: ['*']
+    paths-ignore:
+      - 'docs/**'      # 如果只改了 docs 文件夹，不跑测试
+      - 'README.md'    # 如果只改了 README，不跑测试
+      - 'LICENSE'
   pull_request:
 
 concurrency:
