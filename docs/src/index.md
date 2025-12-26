@@ -207,9 +207,14 @@ m = fit(df, ["id", "year"], "n w ~ lag(n, 1) lag(w, 1)", "GMM(n w, 2:4)", "fod")
 # 2. Run Bootstrap
 # Parameters: model, steps ahead, number of draws
 res = bootstrap(m, 8, 200)
+res = bootstrap(m, 8, 200, "girf") # "girf" is the default method
+res = bootstrap(m, 8, 200, "oirf")
 
 # 3. Plotting (Requires `using Plots`)
-# plot_irf(res) 
+all_plots=Momenta.plot_irf(m, bootstrap_result)
+display(all_plots["n on w"]) # show the impact of n on w
+display(all_plots["full"])  # show a plot with all subplots
+
 
 ```
 
