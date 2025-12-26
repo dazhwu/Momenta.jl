@@ -17,23 +17,27 @@ start_t=now()
 
 #m=Momenta.fit(df, "n  ~ lag(n, 1:2) ", ["id", "year"],  "GMM(n ,2:4)", "fod")
 for i in 1:100
-m = Momenta.fit(df, 
-        ["id", "year"],  
-        "n w  ~ lag(n, 1:2) lag(w, 1:2) k", 
-        "GMM(n w ,2:4) IV(k)", 
-        "" 
-)
+        Momenta.fit(df, 
+                ["id", "year"],  
+                "n w  ~ lag(n, 1:2) lag(w, 1:2) k", 
+                "GMM(n w ,2:4) IV(k)", 
+                "" 
+        )
 end
 
 println(now()-start_t) #2.1 seconds. Mac 1.57 Win 3.0" 
 
 
-m = Momenta.fit(df, 
+m=Momenta.fit(df, 
         ["id", "year"],  
         "n w  ~ lag(n, 1:2) lag(w, 1:2) k", 
         "GMM(n w ,2:4) IV(k)", 
         "" 
 )
+
+Momenta.print_summary(m)
+Momenta.export_html(m,"2.html")
+
 irf = Momenta.irf(m, 8)
 
 start_t=now()

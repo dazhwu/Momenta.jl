@@ -199,7 +199,7 @@ end
 mutable struct basic_info
     N::Int64 
     T::Int64 
-
+    id_time::Vector{String}
     first_diff_index::Int64 
     last_diff_index::Int64 
     first_level_index::Int64 
@@ -224,8 +224,7 @@ mutable struct basic_info
     z_width::Int64   # number of instruments
     z_height::Int64 
 
-    irf_ahead::Int64 
-
+    
     basic_info() = new()
 
 end

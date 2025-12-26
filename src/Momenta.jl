@@ -10,7 +10,8 @@ using PrettyTables
 using Base.Threads
 using PrecompileTools # This is the magic tool for "precompilation"
 
-export fit, regress, plot_irf, basic_info, model, GMM, IV, ALL_LAGS, irf, bootstrap, bootstrap_results
+export fit, regress, plot_irf, basic_info, model, GMM, IV, ALL_LAGS, irf, 
+        bootstrap, bootstrap_results, print_summary, export_html, export_latex
 
 include("data_struct.jl")
 include("common_functions.jl")
@@ -68,6 +69,7 @@ function fit(
 
 
     info = basic_info()
+    info.id_time=id_time
 
     m, the_options, info.num_dep_lags = process_command(
         model_str, instr_str, opts, col_names, var_names, positions, T
@@ -75,7 +77,7 @@ function fit(
 
     m.info=info
 
-    p_data, info.N, info.T = export_data(df, id_time, m, the_options, positions)
+    p_data, info.N, info.T = export_data(df, m, the_options, positions)
 
     fd_data = get_first_difference_table(p_data, info.N)
 
@@ -118,7 +120,8 @@ function fit(
 
     #println(m.info.num_instr)
     if !silent 
-        print_summary(m, id_time)
+    #    print_summary(m, id_time)
+        #display_summary_text(m, id_time)
     end
 
     return m

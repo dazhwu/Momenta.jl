@@ -54,14 +54,14 @@
 end
 
 @inbounds function export_data(
-    df::DataFrame,
-    identifiers::Vector{String},
+    df::DataFrame,    
     m::model,
     the_options::InternalOptions,
     positions::Vector{Int64}       # Only pass column indices, not names
 )
 
     # 1. Build index system
+    identifiers=m.info.id_time
     N, T, the_index = xt_set(df, identifiers)
     if N == 0
         return (Matrix{Float64}(undef, 0, 0), 0, 0)
