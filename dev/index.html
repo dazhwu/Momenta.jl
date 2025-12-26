@@ -60,13 +60,18 @@ m = fit(df, [&quot;id&quot;, &quot;year&quot;], &quot;n w ~ lag(n, 1) lag(w, 1)&
 # 2. Run Bootstrap
 # Parameters: model, steps ahead, number of draws
 res = bootstrap(m, 8, 200)
+res = bootstrap(m, 8, 200, &quot;girf&quot;) # &quot;girf&quot; is the default method
+res = bootstrap(m, 8, 200, &quot;oirf&quot;)
 
 # 3. Plotting (Requires `using Plots`)
-# plot_irf(res) 
+all_plots=Momenta.plot_irf(m, bootstrap_result)
+display(all_plots[&quot;n on w&quot;]) # show the impact of n on w
+display(all_plots[&quot;full&quot;])  # show a plot with all subplots
+
 </code></pre><h3 id="Regression-Summary"><a class="docs-heading-anchor" href="#Regression-Summary">Regression Summary</a><a id="Regression-Summary-1"></a><a class="docs-heading-anchor-permalink" href="#Regression-Summary" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Print detailed summary
 print_summary(m)
 
 # Export results to HTML or LaTeX
 export_html(m, &quot;results.html&quot;)
 export_latex(m, &quot;results.tex&quot;)
-</code></pre></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Friday 26 December 2025 15:37">Friday 26 December 2025</span>. Using Julia version 1.12.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Friday 26 December 2025 15:51">Friday 26 December 2025</span>. Using Julia version 1.12.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
