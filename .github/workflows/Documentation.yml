@@ -1,18 +1,20 @@
-```yaml
 name: Documentation
 
 on:
   push:
     branches:
-      - main 
-    tags: '*'
+      - main
+    tags: 
+      - '*'  # 修改点1：改成列表格式，这样最稳健
   pull_request:
+    branches:
+      - main # 修改点2：最好明确指定 PR 针对的分支，或者直接留空也行，但不要只写个冒号悬在半空
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 这一行非常重要，给机器人写权限
+      contents: write 
       statuses: write
     steps:
       - uses: actions/checkout@v4
@@ -21,9 +23,10 @@ jobs:
           version: '1'
       - uses: julia-actions/cache@v2
       - name: Install dependencies
+        # 注意：这行命令要求你的 docs/ 文件夹里必须有 Project.toml
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       - name: Build and deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 自动调用 GitHub 令牌
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # 通常不需要，除非你需要特殊权限
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
         run: julia --project=docs/ docs/make.jl
