@@ -7,6 +7,8 @@
 [![Build Status](https://github.com/dazhwu/Momenta.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/dazhwu/Momenta.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dazhwu/Momenta.jl/blob/main/LICENSE)
 
+![](https://img.shields.io/github/v/release/dazhwu/Momenta.jl)
+
 **Momenta** is a next-generation, high-performance library for **Panel Vector Autoregression (PVAR)** analysis.
 
 It provides a rigorous implementation of the **Generalized Method of Moments (GMM)** estimators for dynamic panel data, strictly adhering to the econometric frameworks established by Holtz-Eakin et al. (1988), Arellano & Bover (1995), and Blundell & Bond (1998).
